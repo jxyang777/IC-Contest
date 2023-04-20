@@ -27,7 +27,7 @@ output reg DONE);
     reg [5:0] max_cover_count;                                 // max cover count of every scan of 256 dots
     reg [5:0] iter_cover_count;                                // max cover count of all iteration
 
-    wire [3:0] x_target, y_target;                     // x, y of target_idx for calculating distance
+    wire [3:0] x_target, y_target;                             // x, y of target_idx for calculating distance
     wire [3:0] dist_x1, dist_y1;                               // abs of intercept of target_idx and search_pos
     wire [3:0] dist_x2, dist_y2;                               // abs of intercept of fix_pos and search_pos
     wire [8:0] dist_sq1, dist_sq2;                             // distance square
@@ -54,11 +54,11 @@ output reg DONE);
     always @(*) begin
         case (current_state)
             RECEIVE: begin
-                if(receive_count >= 6'd40) next_state = FIND_MAX_COVER;
+                if(receive_count == 6'd39) next_state = FIND_MAX_COVER;
                 else                       next_state = RECEIVE;
             end
             FIND_MAX_COVER: begin
-                if(target_idx >= 6'd39) next_state = CHECK_1;
+                if(target_idx == 6'd39) next_state = CHECK_1;
                 else                    next_state = FIND_MAX_COVER;
             end
             CHECK_1: begin
